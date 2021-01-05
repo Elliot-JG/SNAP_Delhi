@@ -59,8 +59,11 @@ cloud_plot <- ggplot2::ggplot(cloud_spectra, aes(
     colour="red", 
     size = 1)+
   labs(y=expression(R[rs]))+
-  xlab("Wavelength (nm)")+
-  theme(text = element_text(size=27))
+  theme(
+    axis.title.x = element_blank())+
+  theme(text = element_text(size=27))+  
+  annotate("text", x = 2000, y = 0.25,
+           label = "Cloud", parse = TRUE, size = 10, colour = "red")
 
 
   # Smog spectra
@@ -72,9 +75,12 @@ smog_plot <- ggplot2::ggplot(smog_spectra, aes(
   geom_line(
     colour="blue", 
     size = 1)+
+  theme(
+    axis.title.x = element_blank())+
   labs(y=expression(R[rs]))+
-  xlab("Wavelength (nm)")+
-  theme(text = element_text(size=27))
+  theme(text = element_text(size=27))+  
+  annotate("text", x = 2000, y = 0.25,
+           label = "Smog", parse = TRUE, size = 10, colour = "blue")
 
   # Land spectra
 land_plot <- ggplot2::ggplot(land_spectra, aes(
@@ -85,19 +91,24 @@ land_plot <- ggplot2::ggplot(land_spectra, aes(
   geom_line(
     colour="green3", 
     size = 1)+
-  labs(y=expression(R[rs]))+
   xlab("Wavelength (nm)")+
+  labs(y=expression(R[rs]))+
   scale_y_continuous(breaks = c(0.10, 0.15, 0.20, 0.25, 0.30))+
   geom_vline(xintercept=560, lwd = 1)+
   geom_vline(xintercept=665, lwd = 1)+
   geom_vline(xintercept=760, lwd = 1)+
+  scale_colour_continuous(name  ="Payer",
+                        labels=c("land")) +
   annotate("text", x = 530, y = 0.26,
-           label = "A", parse = TRUE, size = 6)+
+           label = "530", parse = TRUE, size = 6)+
   annotate("text", x = 635, y = 0.26,
-           label = "B", parse = TRUE, size = 6)+
+           label = "635", parse = TRUE, size = 6)+
   annotate("text", x = 730, y = 0.26,
-           label = "C", parse = TRUE, size = 6)+
+           label = "730", parse = TRUE, size = 6)+
+  annotate("text", x = 2000, y = 0.25,
+           label = "Land", parse = TRUE, size = 10, colour = "green3")+
   theme(text = element_text(size=27))
+
 
   # Combine plots 
 grid.arrange(cloud_plot, smog_plot, land_plot)
